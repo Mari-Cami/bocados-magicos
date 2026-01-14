@@ -101,21 +101,16 @@ textarea {
   display: none;
 }
 
-.encabezado {
-  background: var(--principal);
-  padding: 25px;
-  text-align: center;
-  border-radius: 0 0 30px 30px;
-  margin-bottom: 20px;
+.vaciar {
+  background: transparent;
+  color: #a34;
+  border: 1px solid #a34;
+  margin-top: 10px;
 }
 
-.logo-texto {
+.vaciar:hover {
+  background: #a34;
   color: white;
-  font-size: 36px;
-  font-weight: bold;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
 }
 
 @media (max-width: 768px) {
@@ -146,8 +141,3 @@ textarea {
     gap: 5px;
   }
 }
-  font-size: 16px;
-  color: #fff7a8;
-}
-
-
