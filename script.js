@@ -57,7 +57,7 @@ function enviarWhatsApp() {
   mensaje += `%0A📍 Dirección: ${direccion}`;
   mensaje += `%0A💰 Total: $${total.toLocaleString()}`;
 
-  const telefono = "573XXXXXXXXX"; // TU número aquí
+  const telefono = "573225739177"; // TU número aquí
   window.open(`https://wa.me/${telefono}?text=${mensaje}`, "_blank");
 
   document.getElementById("mensaje-gracias").classList.remove("oculto");
@@ -69,3 +69,4 @@ function enviarWhatsApp() {
   document.getElementById("telefono").value = "";
   document.getElementById("direccion").value = "";
 }
+
