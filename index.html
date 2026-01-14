@@ -19,4 +19,63 @@
 
     <div class="producto">
       <h3>Capricho doble</h3>
-      <p cla
+      <p class="descripcion">Galleta de cacao aromatizada con vainilla.</p>
+      <p class="precio">$5.000</p>
+      <button type="button" onclick="agregarPedido('Capricho doble', 5000)">Agregar</button>
+    </div>
+
+    <div class="producto">
+      <h3>CapuKeks</h3>
+      <p class="descripcion">Galleta de Cappuccino cubierta de chocolate blanco.</p>
+      <p class="precio">$5.000</p>
+      <button type="button" onclick="agregarPedido('CapuKeks', 5000)">Agregar</button>
+    </div>
+
+    <div class="producto">
+      <h3>Rubí de café</h3>
+      <p class="descripcion">Galleta de café con leche de color rojo intenso.</p>
+      <p class="precio">$5.000</p>
+      <button type="button" onclick="agregarPedido('Rubí de café', 5000)">Agregar</button>
+    </div>
+
+    <div class="producto">
+      <h3>Susurro de manzanilla</h3>
+      <p class="descripcion">Galleta con sabor de flor de manzanilla natural pulverizada con cocoa.</p>
+      <p class="precio">$5.000</p>
+      <button type="button" onclick="agregarPedido('Susurro de manzanilla', 5000)">Agregar</button>
+    </div>
+
+    <div class="producto">
+      <h3>Magia en cuatro bocados</h3>
+      <p class="descripcion">Combo de 4 galletas para que no te quedes sin probar ninguna.</p>
+      <p class="precio">$15.000</p>
+      <button type="button" onclick="agregarPedido('Magia en cuatro bocados', 15000)">Agregar</button>
+    </div>
+  </section>
+
+  <!-- SECCIÓN PEDIDO -->
+  <section class="pedido">
+    <div class="pedido-header">
+      <h2>Tu pedido</h2>
+      <button type="button" class="vaciar" onclick="vaciarCarrito()">Vaciar carrito</button>
+    </div>
+
+    <ul id="lista-pedido"></ul>
+    <p id="total">Total: $0</p>
+
+    <!-- DATOS DEL CLIENTE -->
+    <input id="nombre" type="text" placeholder="Nombre completo" />
+    <input id="telefono" type="tel" placeholder="Número de teléfono" />
+    <textarea id="direccion" placeholder="Dirección completa para el domicilio"></textarea>
+
+    <button type="button" onclick="enviarWhatsApp()">Enviar pedido por WhatsApp</button>
+
+    <p id="mensaje-gracias" class="oculto">
+      💜 Gracias por pedir con Bocados Mágicos 💜
+    </p>
+  </section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
