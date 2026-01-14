@@ -100,3 +100,41 @@ textarea {
 .oculto {
   display: none;
 }
+
+.encabezado {
+  background: var(--principal);
+  padding: 25px;
+  text-align: center;
+  border-radius: 0 0 30px 30px;
+  margin-bottom: 20px;
+}
+
+.logo-texto {
+  color: white;
+  font-size: 36px;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* VARITA */
+.varita {
+  position: relative;
+  width: 4px;
+  height: 32px;
+  background: white;
+  border-radius: 2px;
+  margin: 0 4px;
+}
+
+/* ESTRELLA DE LA VARITA */
+.estrella {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  color: #fff7a8;
+}
+
