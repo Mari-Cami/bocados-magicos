@@ -10,6 +10,8 @@ body {
   background: var(--fondo);
   font-family: Arial, sans-serif;
   color: var(--texto);
+  margin: 0;
+  padding: 0;
 }
 
 main {
@@ -52,6 +54,7 @@ button {
   font-size: 16px;
   display: block;
   margin: 10px auto 0 auto;
+  min-width: 120px; /* tamaño mínimo en PC */
 }
 
 button:hover {
@@ -103,7 +106,7 @@ textarea {
   display: none;
 }
 
-/* PEDIDO HEADER */
+/* PEDIDO HEADER: "Tu pedido" + botón vaciar */
 .pedido-header {
   display: flex;
   justify-content: space-between;
@@ -130,6 +133,7 @@ textarea {
   color: white;
 }
 
+/* RESPONSIVE PARA MÓVILES */
 @media (max-width: 768px) {
   main {
     grid-template-columns: 1fr;
