@@ -57,7 +57,7 @@ function enviarWhatsApp() {
   mensaje += `%0A📍 Dirección: ${direccion}`;
   mensaje += `%0A💰 Total: $${total.toLocaleString()}`;
 
-  const telefono = "573XXXXXXXXX"; // TU número aquí
+  const telefono = "573225739177"; // TU número aquí
   window.open(`https://wa.me/${telefono}?text=${mensaje}`, "_blank");
 
   document.getElementById("mensaje-gracias").classList.remove("oculto");
@@ -71,14 +71,14 @@ function enviarWhatsApp() {
 }
 
 function vaciarCarrito() {
-  if (Object.keys(pedido).length === 0) {
+  if (pedido.length === 0) {
     alert("El carrito ya está vacío");
     return;
   }
 
   if (confirm("¿Seguro que quieres vaciar todo el carrito?")) {
-    pedido = {};
-    total = 0;
-    actualizarPedido();
+    pedido = []; // lo dejamos como arreglo
+    total = 0;   // reiniciamos el total
+    actualizarPedido(); // actualizamos la vista
   }
 }
