@@ -2,93 +2,90 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Bocados Mágicos 🍪</title>
-
-  <!-- Estilos -->
+  <title>Bocados Mágicos</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ===============================
-  🍪 ENCABEZADO
-  ================================ -->
-  <header>
-    <h1>🍪 Bocados Mágicos</h1>
-    <p>🪄 Cada bocado, un hechizo de sabor</p>
-  </header>
+  <h1>🍪 Bocados Mágicos</h1>
 
-  <!-- ===============================
-  📦 CONTENIDO PRINCIPAL
-  ================================ -->
-  <main>
+  <section class="productos">
 
-    <!-- ===============================
-    🍪 PRODUCTOS
-    ================================ -->
-    <section class="productos">
-      <h2>Nuestras galletas</h2>
-
-      <div class="productos-grid">
-
-        <div class="producto">
-          <h3>Capricho doble</h3>
-          <p class="precio">$5.000</p>
-          <button onclick="agregarPedido('Capricho doble', 5000)">
-            Agregar
-          </button>
-        </div>
-
-        <div class="producto">
-          <h3>Rubí de café</h3>
-          <p class="precio">$5.000</p>
-          <button onclick="agregarPedido('Rubí de café', 5000)">
-            Agregar
-          </button>
-        </div>
-
-        <div class="producto">
-          <h3>CapuKeks</h3>
-          <p class="precio">$5.000</p>
-          <button onclick="agregarPedido('CapuKeks', 5000)">
-            Agregar
-          </button>
-        </div>
-
-        <div class="producto">
-          <h3>Susurro de manzanilla</h3>
-          <p class="precio">$5.000</p>
-          <button onclick="agregarPedido('Susurro de manzanilla', 5000)">
-            Agregar
-          </button>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ===============================
-    🛒 PEDIDO
-    ================================ -->
-    <section class="pedido">
-      <h2>Tu pedido</h2>
-
-      <!-- Lista del pedido (JS) -->
-      <ul id="lista-pedido"></ul>
-
-      <!-- Total (JS) -->
-      <p id="total"></p>
-
-      <!-- 🔔 BOTÓN WHATSAPP CORRECTO -->
-      <button class="btn-whatsapp" onclick="enviarWhatsApp()">
-        Enviar pedido por WhatsApp
+    <div class="producto">
+      <h3>Capricho doble</h3>
+      <p class="descripcion">
+        Galleta de cacao aromatizada con vainilla.
+      </p>
+      <p class="precio">$5.000</p>
+      <button onclick="agregarPedido('Capricho doble', 5000)">
+        Agregar
       </button>
-    </section>
+    </div>
 
-  </main>
+    <div class="producto">
+      <h3>CapuKeks</h3>
+      <p class="descripcion">
+        Galleta de Cappuccino cubierta de chocolate blanco.
+      </p>
+      <p class="precio">$5.000</p>
+      <button onclick="agregarPedido('CapuKeks', 4000)">
+        Agregar
+      </button>
+    </div>
 
-  <!-- JavaScript -->
+    <div class="producto">
+      <h3>Rubí de café</h3>
+      <p class="descripcion">
+        Galleta de café con leche de color rojo intenso.
+      </p>
+      <p class="precio">$5.000</p>
+      <button onclick="agregarPedido('Rubí de café', 4500)">
+        Agregar
+      </button>
+    </div>
+
+    <div class="producto">
+      <h3>Susurro de manzanilla</h3>
+      <p class="descripcion">
+        Galleta con sabor de flor de manzanilla natural pulverizada con cocoa.
+      </p>
+      <p class="precio">$5.000</p>
+      <button onclick="agregarPedido('Susurro de manzanilla', 4500)">
+        Agregar
+      </button>
+    </div>
+
+    <div class="producto">
+      <h3>Magia en cuatro bocados</h3>
+      <p class="descripcion">
+        Combo de 4 galletas para que no te quedes sin probar ninguna.
+      </p>
+      <p class="precio">$15.000</p>
+      <button onclick="agregarPedido('Magia en cuatro bocados', 4500)">
+        Agregar
+      </button>
+    </div>
+
+  </section>
+
+  <section class="pedido">
+    <h2>🧾 Tu pedido</h2>
+
+    <ul id="listaPedido"></ul>
+
+    <p id="total"></p>
+
+    <label for="direccion"><strong>Dirección de entrega</strong></label>
+    <textarea
+      id="direccion"
+      placeholder="Ej: Calle 45 #23-10, Apto 302, Barrio El Prado"
+    ></textarea>
+
+    <button class="whatsapp" onclick="enviarWhatsApp()">
+      Enviar pedido por WhatsApp
+    </button>
+  </section>
+
   <script src="script.js"></script>
-
 </body>
-
 </html>
-
