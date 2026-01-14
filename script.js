@@ -7,51 +7,65 @@ function agregarPedido(nombre, precio) {
   actualizarPedido();
 }
 
+function quitarPedido(index) {
+  total -= pedido[index].precio;
+  pedido.splice(index, 1);
+  actualizarPedido();
+}
+
 function actualizarPedido() {
-  const lista = document.getElementById("listaPedido");
+  const lista = document.getElementById("lista-pedido");
   const totalTexto = document.getElementById("total");
 
   lista.innerHTML = "";
 
-  pedido.forEach(item => {
+  pedido.forEach((item, index) => {
     const li = document.createElement("li");
-    li.textContent = `${item.nombre} - $${item.precio}`;
+    li.innerHTML = `
+      ${item.nombre} - $${item.precio.toLocaleString()}
+      <button class="quitar" onclick="quitarPedido(${index})">✖</button>
+    `;
     lista.appendChild(li);
   });
 
-  totalTexto.textContent = `Total: $${total}`;
+  totalTexto.textContent = `Total: $${total.toLocaleString()}`;
 }
 
 function enviarWhatsApp() {
   if (pedido.length === 0) {
-    alert("Tu pedido está vacío");
+    alert("Aún no has agregado productos");
     return;
   }
 
-  const direccion = document.getElementById("direccion").value;
+  const nombre = document.getElementById("nombre").value.trim();
+  const telefonoCliente = document.getElementById("telefono").value.trim();
+  const direccion = document.getElementById("direccion").value.trim();
 
-  if (direccion.trim() === "") {
-    alert("Por favor escribe tu dirección de entrega");
+  if (!nombre || !telefonoCliente || !direccion) {
+    alert("Por favor completa nombre, teléfono y dirección");
     return;
   }
 
-  let mensaje = "🍪 *Pedido Bocados Mágicos* 🍪%0A%0A";
+  let mensaje = `Hola, soy ${nombre}%0A`;
+  mensaje += `📞 Teléfono: ${telefonoCliente}%0A%0A`;
+  mensaje += `Quiero hacer el siguiente pedido:%0A`;
 
   pedido.forEach(item => {
-    mensaje += `• ${item.nombre} - $${item.precio}%0A`;
+    mensaje += `• ${item.nombre} - $${item.precio.toLocaleString()}%0A`;
   });
 
-  mensaje += `%0A💰 *Total:* $${total}`;
-  mensaje += `%0A%0A📍 *Dirección:* %0A${direccion}`;
-  mensaje += `%0A%0A✨ ¡Gracias por tu pedido!`;
+  mensaje += `%0A📍 Dirección: ${direccion}`;
+  mensaje += `%0A💰 Total: $${total.toLocaleString()}`;
 
-  const telefono = "57TUNUMEROAQUI"; // ← CAMBIA ESTO
-  const url = `https://wa.me/${telefono}?text=${mensaje}`;
+  const telefono = "573XXXXXXXXX"; // TU número aquí
+  window.open(`https://wa.me/${telefono}?text=${mensaje}`, "_blank");
 
-  window.open(url, "_blank");
+  document.getElementById("mensaje-gracias").classList.remove("oculto");
+
+  pedido = [];
+  total = 0;
+  actualizarPedido();
+  document.getElementById("nombre").value = "";
+  document.getElementById("telefono").value = "";
+  document.getElementById("direccion").value = "";
 }
-
-  // Abrimos WhatsApp en una nueva pestaña
-  window.open(url, "_blank");
-}
-
