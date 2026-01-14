@@ -161,7 +161,8 @@ button:hover {
 
 }
 
-/* 📌 CENTRAR SOLO EL BOTÓN "AGREGAR" */
-.producto button {
-  margin: 12px auto 0;
+.producto {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 👈 ESTO CENTRA EL BOTÓN */
 }
