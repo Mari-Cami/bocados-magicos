@@ -9,79 +9,42 @@
   --sombra: rgba(0, 0, 0, 0.08);
 }
 
-/* ===============================
-🧱 ESTILO GENERAL
-=============================== */
 body {
+  font-family: Arial, sans-serif;
+  background: #f8f3fa;
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: var(--fondo);
-  color: var(--texto);
-}
-
-/* ===============================
-🍪 HEADER
-=============================== */
-header {
-  background: linear-gradient(135deg, #A594F9, #CDC1FF);
-  color: white;
-  padding: 25px;
+  padding: 20px;
   text-align: center;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
 }
 
-header h1 {
-  margin: 0;
+h1 {
+  color: #6a2c91;
 }
 
-header p {
-  margin-top: 8px;
-  opacity: 0.9;
-}
-
-/* ===============================
-📦 CONTENIDO PRINCIPAL
-=============================== */
-main {
-  padding: 25px;
-  max-width: 1100px;
-  margin: auto;
-}
-
-/* ===============================
-🍪 PRODUCTOS
-=============================== */
-.productos h2 {
-  margin-bottom: 15px;
-}
-
-/* 🔲 Grilla de tarjetas */
-.productos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+.productos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
 }
 
-/* 🧁 Tarjeta de producto */
 .producto {
-  background: var(--card);
+  background: white;
   padding: 20px;
-  border-radius: 18px;
-  box-shadow: 0 8px 20px var(--sombra);
-  text-align: center;
-  transition: transform 0.2s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.producto:hover {
-  transform: translateY(-5px);
+  border-radius: 16px;
+  width: 220px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
 }
 
 .producto h3 {
-  margin-top: 0;
+  margin: 0;
+  color: #4a235a;
+}
+
+.descripcion {
+  font-size: 13px;
+  color: #6b5b73;
+  margin: 8px 0;
 }
 
 .precio {
@@ -89,78 +52,54 @@ main {
   margin: 10px 0;
 }
 
-/* ===============================
-🛒 PEDIDO
-=============================== */
-.pedido {
-  background: var(--card);
-  margin-top: 40px;
-  padding: 25px;
-  border-radius: 20px;
-  box-shadow: 0 8px 20px var(--sombra);
-}
-
-/* ===============================
-🛒 TÍTULO "TU PEDIDO" CENTRADO
-=============================== */
-.pedido h2 {
-  text-align: center;
-}
-
-#lista-pedido {
-  list-style: none;
-  padding: 0;
-  margin: 15px 0;
-}
-
-#lista-pedido li {
-  border-bottom: 1px dashed #cbbcf6;
-  padding: 8px 0;
-}
-
-/* Total */
-#total {
-  font-weight: bold;
-  margin-top: 15px;
-}
-
-/* ===============================
-🔘 BOTONES (TEXTO CENTRADO)
-=============================== */
 button {
-  background: var(--principal);
+  background: #8e44ad;
   color: white;
   border: none;
-  padding: 10px 18px;
+  padding: 10px 14px;
   border-radius: 12px;
   cursor: pointer;
-  font-size: 14px;
-
-  /* 🔔 CENTRADO PERFECTO DEL TEXTO */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-
-  transition: background 0.2s ease;
 }
 
 button:hover {
-  background: #8f7eea;
+  background: #732d91;
 }
 
-/* ===============================
-📲 BOTÓN WHATSAPP (CENTRADO REAL)
-=============================== */
-.btn-whatsapp {
-  width: 100%;              /* 🔔 ocupa todo el ancho */
-  margin-top: 15px;
-
-  display: flex;            /* centra el texto */
-  justify-content: center;  /* horizontal */
-  align-items: center;      /* vertical */
-
-  text-align: center;
-
+.pedido {
+  margin-top: 40px;
+  background: white;
+  padding: 25px;
+  border-radius: 18px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
 }
 
+#listaPedido {
+  list-style: none;
+  padding: 0;
+}
+
+#listaPedido li {
+  margin: 6px 0;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  resize: none;
+  font-size: 14px;
+  margin: 10px 0 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.whatsapp {
+  background: #25d366;
+}
+
+.whatsapp:hover {
+  background: #1ebe5b;
+}
