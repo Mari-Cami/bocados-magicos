@@ -1,105 +1,102 @@
-/* ===============================
-🎨 COLORES BASE (TU PALETA)
-=============================== */
 :root {
-  --principal: #A594F9; /* Morado principal */
-  --fondo: #E5D9F2;     /* Fondo suave */
-  --card: #F5EFFF;      /* Tarjetas */
-  --texto: #4a2c2a;     /* Texto */
+  --principal: #A594F9;
+  --fondo: #E5D9F2;
+  --card: #F5EFFF;
+  --texto: #4a2c2a;
   --sombra: rgba(0, 0, 0, 0.08);
 }
 
 body {
+  background: var(--fondo);
   font-family: Arial, sans-serif;
-  background: #f8f3fa;
-  margin: 0;
-  padding: 20px;
-  text-align: center;
+  color: var(--texto);
 }
 
-h1 {
-  color: #6a2c91;
-}
-
-.productos {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+main {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
   gap: 20px;
+  padding: 20px;
+}
+
+.productos,
+.pedido {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px var(--sombra);
 }
 
 .producto {
-  background: white;
-  padding: 20px;
-  border-radius: 16px;
-  width: 220px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-}
-
-.producto h3 {
-  margin: 0;
-  color: #4a235a;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ddd;
 }
 
 .descripcion {
-  font-size: 13px;
-  color: #6b5b73;
-  margin: 8px 0;
+  font-size: 14px;
+  opacity: 0.85;
 }
 
 .precio {
   font-weight: bold;
-  margin: 10px 0;
 }
 
 button {
-  background: #8e44ad;
+  background: var(--principal);
   color: white;
   border: none;
-  padding: 10px 14px;
+  padding: 10px 18px;
   border-radius: 12px;
   cursor: pointer;
+  font-size: 14px;
+  display: block;
+  margin: 10px auto 0 auto;
 }
 
 button:hover {
-  background: #732d91;
+  background: #8f7eea;
 }
 
-.pedido {
-  margin-top: 40px;
-  background: white;
-  padding: 25px;
-  border-radius: 18px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-}
-
-#listaPedido {
+ul {
   list-style: none;
   padding: 0;
 }
 
-#listaPedido li {
-  margin: 6px 0;
+li {
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quitar {
+  background: transparent;
+  color: red;
+  border: none;
+  cursor: pointer;
+}
+
+input,
+textarea {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
 }
 
 textarea {
-  width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
   resize: none;
-  font-size: 14px;
-  margin: 10px 0 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
-.whatsapp {
-  background: #25d366;
+#mensaje-gracias {
+  margin-top: 15px;
+  text-align: center;
+  font-weight: bold;
 }
 
-.whatsapp:hover {
-  background: #1ebe5b;
+.oculto {
+  display: none;
 }
