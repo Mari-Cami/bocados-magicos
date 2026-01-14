@@ -2,14 +2,11 @@ let pedido = [];
 let total = 0;
 
 function agregarPedido(nombre, precio) {
-  // Buscar si el producto ya está en el carrito
   const productoExistente = pedido.find(item => item.nombre === nombre);
 
   if (productoExistente) {
-    // Si existe, aumentamos la cantidad
     productoExistente.cantidad += 1;
   } else {
-    // Si no existe, agregamos nuevo producto con cantidad 1
     pedido.push({ nombre, precio, cantidad: 1 });
   }
 
@@ -19,7 +16,6 @@ function agregarPedido(nombre, precio) {
   actualizarPedido();
 }
 
-
 function quitarPedido(index) {
   if (pedido[index].cantidad > 1) {
     pedido[index].cantidad -= 1;
@@ -27,12 +23,9 @@ function quitarPedido(index) {
     pedido.splice(index, 1);
   }
 
-  // Recalcular total
   total = pedido.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
-
   actualizarPedido();
 }
-
 
 function actualizarPedido() {
   const lista = document.getElementById("lista-pedido");
@@ -72,7 +65,7 @@ function enviarWhatsApp() {
   mensaje += `Quiero hacer el siguiente pedido:%0A`;
 
   pedido.forEach(item => {
-    mensaje += `• ${item.nombre} - $${item.precio.toLocaleString()}%0A`;
+    mensaje += `• ${item.nombre} ${item.cantidad > 1 ? `x${item.cantidad}` : ''} - $${(item.precio * item.cantidad).toLocaleString()}%0A`;
   });
 
   mensaje += `%0A📍 Dirección: ${direccion}`;
@@ -83,6 +76,7 @@ function enviarWhatsApp() {
 
   document.getElementById("mensaje-gracias").classList.remove("oculto");
 
+  // Reiniciar carrito y formulario
   pedido = [];
   total = 0;
   actualizarPedido();
@@ -98,9 +92,8 @@ function vaciarCarrito() {
   }
 
   if (confirm("¿Seguro que quieres vaciar todo el carrito?")) {
-    pedido = []; // lo dejamos como arreglo
-    total = 0;   // reiniciamos el total
-    actualizarPedido(); // actualizamos la vista
+    pedido = [];
+    total = 0;
+    actualizarPedido();
   }
 }
-
