@@ -1,15 +1,30 @@
-let pedido = [];
+let pedido = {};
 let total = 0;
 
 function agregarPedido(nombre, precio) {
-  pedido.push({ nombre, precio });
+  if (pedido[nombre]) {
+    pedido[nombre].cantidad++;
+  } else {
+    pedido[nombre] = {
+      precio: precio,
+      cantidad: 1
+    };
+  }
+
   total += precio;
   actualizarPedido();
 }
 
-function quitarPedido(index) {
-  total -= pedido[index].precio;
-  pedido.splice(index, 1);
+function quitarPedido(nombre) {
+  if (!pedido[nombre]) return;
+
+  pedido[nombre].cantidad--;
+  total -= pedido[nombre].precio;
+
+  if (pedido[nombre].cantidad === 0) {
+    delete pedido[nombre];
+  }
+
   actualizarPedido();
 }
 
@@ -19,54 +34,40 @@ function actualizarPedido() {
 
   lista.innerHTML = "";
 
-  pedido.forEach((item, index) => {
+  for (let nombre in pedido) {
+    const item = pedido[nombre];
+
     const li = document.createElement("li");
     li.innerHTML = `
-      ${item.nombre} - $${item.precio.toLocaleString()}
-      <button class="quitar" onclick="quitarPedido(${index})">✖</button>
+      ${nombre} (${item.cantidad}x)
+      <button class="quitar" onclick="quitarPedido('${nombre}')">✖</button>
     `;
     lista.appendChild(li);
-  });
+  }
 
   totalTexto.textContent = `Total: $${total.toLocaleString()}`;
 }
 
 function enviarWhatsApp() {
-  if (pedido.length === 0) {
+  if (Object.keys(pedido).length === 0) {
     alert("Aún no has agregado productos");
     return;
   }
 
-  const nombre = document.getElementById("nombre").value.trim();
+  const nombreCliente = document.getElementById("nombre").value.trim();
   const telefonoCliente = document.getElementById("telefono").value.trim();
   const direccion = document.getElementById("direccion").value.trim();
 
-  if (!nombre || !telefonoCliente || !direccion) {
-    alert("Por favor completa nombre, teléfono y dirección");
+  if (!nombreCliente || !telefonoCliente || !direccion) {
+    alert("Por favor completa todos los datos");
     return;
   }
 
-  let mensaje = `Hola, soy ${nombre}%0A`;
+  let mensaje = `Hola, soy ${nombreCliente}%0A`;
   mensaje += `📞 Teléfono: ${telefonoCliente}%0A%0A`;
   mensaje += `Quiero hacer el siguiente pedido:%0A`;
 
-  pedido.forEach(item => {
-    mensaje += `• ${item.nombre} - $${item.precio.toLocaleString()}%0A`;
-  });
-
-  mensaje += `%0A📍 Dirección: ${direccion}`;
-  mensaje += `%0A💰 Total: $${total.toLocaleString()}`;
-
-  const telefono = "573225739177"; // TU número aquí
-  window.open(`https://wa.me/${telefono}?text=${mensaje}`, "_blank");
-
-  document.getElementById("mensaje-gracias").classList.remove("oculto");
-
-  pedido = [];
-  total = 0;
-  actualizarPedido();
-  document.getElementById("nombre").value = "";
-  document.getElementById("telefono").value = "";
-  document.getElementById("direccion").value = "";
-}
-
+  for (let nombre in pedido) {
+    const item = pedido[nombre];
+    mensaje += `• ${nombre} (${item.cantidad}x) - $${(item.precio * item.cantidad).toLocaleString()}%0A`;
+  }
