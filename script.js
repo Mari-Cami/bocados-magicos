@@ -34,7 +34,7 @@ function actualizarPedido() {
   pedido.forEach((item, index) => {
     const li = document.createElement("li");
     li.innerHTML = `
-      ${item.nombre} ${item.cantidad > 1 ? `x${item.cantidad}` : ''} - $${(item.precio * item.cantidad).toLocaleString()}
+      ${item.nombre} ${item.cantidad > 1 ? `(${item.cantidad}x)` : ''} - $${(item.precio * item.cantidad).toLocaleString()}
       <button type="button" class="quitar" onclick="quitarPedido(${index})">✖</button>
     `;
     lista.appendChild(li);
@@ -62,8 +62,10 @@ function enviarWhatsApp() {
   mensaje += `📞 Teléfono: ${telefonoCliente}%0A%0A`;
   mensaje += `Quiero hacer el siguiente pedido:%0A`;
 
+  // AGREGAMOS EL NOMBRE CON CANTIDAD
   pedido.forEach(item => {
-    mensaje += `• ${item.nombre} ${item.cantidad > 1 ? `x${item.cantidad}` : ''} - $${(item.precio * item.cantidad).toLocaleString()}%0A`;
+    const nombreCantidad = item.cantidad > 1 ? `${item.nombre} (${item.cantidad}x)` : item.nombre;
+    mensaje += `• ${nombreCantidad} - $${(item.precio * item.cantidad).toLocaleString()}%0A`;
   });
 
   mensaje += `%0A📍 Dirección: ${direccion}`;
