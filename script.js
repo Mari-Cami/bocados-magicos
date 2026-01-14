@@ -71,3 +71,75 @@ function enviarWhatsApp() {
     const item = pedido[nombre];
     mensaje += `• ${nombre} (${item.cantidad}x) - $${(item.precio * item.cantidad).toLocaleString()}%0A`;
   }
+
+let pedido = [];
+let total = 0;
+
+function agregarPedido(nombre, precio) {
+  pedido.push({ nombre, precio });
+  total += precio;
+  actualizarPedido();
+}
+
+function quitarPedido(index) {
+  total -= pedido[index].precio;
+  pedido.splice(index, 1);
+  actualizarPedido();
+}
+
+function actualizarPedido() {
+  const lista = document.getElementById("lista-pedido");
+  const totalTexto = document.getElementById("total");
+
+  lista.innerHTML = "";
+
+  pedido.forEach((item, index) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      ${item.nombre} - $${item.precio.toLocaleString()}
+      <button class="quitar" onclick="quitarPedido(${index})">✖</button>
+    `;
+    lista.appendChild(li);
+  });
+
+  totalTexto.textContent = `Total: $${total.toLocaleString()}`;
+}
+
+function enviarWhatsApp() {
+  if (pedido.length === 0) {
+    alert("Aún no has agregado productos");
+    return;
+  }
+
+  const nombre = document.getElementById("nombre").value.trim();
+  const telefonoCliente = document.getElementById("telefono").value.trim();
+  const direccion = document.getElementById("direccion").value.trim();
+
+  if (!nombre || !telefonoCliente || !direccion) {
+    alert("Por favor completa nombre, teléfono y dirección");
+    return;
+  }
+
+  let mensaje = `Hola, soy ${nombre}%0A`;
+  mensaje += `📞 Teléfono: ${telefonoCliente}%0A%0A`;
+  mensaje += `Quiero hacer el siguiente pedido:%0A`;
+
+  pedido.forEach(item => {
+    mensaje += `• ${item.nombre} - $${item.precio.toLocaleString()}%0A`;
+  });
+
+  mensaje += `%0A📍 Dirección: ${direccion}`;
+  mensaje += `%0A💰 Total: $${total.toLocaleString()}`;
+
+  const telefono = "573XXXXXXXXX"; // TU número aquí
+  window.open(`https://wa.me/${telefono}?text=${mensaje}`, "_blank");
+
+  document.getElementById("mensaje-gracias").classList.remove("oculto");
+
+  pedido = [];
+  total = 0;
+  actualizarPedido();
+  document.getElementById("nombre").value = "";
+  document.getElementById("telefono").value = "";
+  document.getElementById("direccion").value = "";
+}
