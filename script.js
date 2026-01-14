@@ -1,99 +1,147 @@
-let pedido = [];
-let total = 0;
-
-function agregarPedido(nombre, precio) {
-  const productoExistente = pedido.find(item => item.nombre === nombre);
-
-  if (productoExistente) {
-    productoExistente.cantidad += 1;
-  } else {
-    pedido.push({ nombre, precio, cantidad: 1 });
-  }
-
-  // Recalcular total
-  total = pedido.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
-
-  actualizarPedido();
+:root {
+  --principal: #A594F9;
+  --fondo: #E5D9F2;
+  --card: #F5EFFF;
+  --texto: #4a2c2a;
+  --sombra: rgba(0, 0, 0, 0.08);
 }
 
-function quitarPedido(index) {
-  if (pedido[index].cantidad > 1) {
-    pedido[index].cantidad -= 1;
-  } else {
-    pedido.splice(index, 1);
-  }
-
-  total = pedido.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
-  actualizarPedido();
+body {
+  background: var(--fondo);
+  font-family: Arial, sans-serif;
+  color: var(--texto);
 }
 
-function actualizarPedido() {
-  const lista = document.getElementById("lista-pedido");
-  const totalTexto = document.getElementById("total");
-
-  lista.innerHTML = "";
-
-  pedido.forEach((item, index) => {
-    const li = document.createElement("li");
-    li.innerHTML = `
-      ${item.nombre} ${item.cantidad > 1 ? `x${item.cantidad}` : ''} - $${(item.precio * item.cantidad).toLocaleString()}
-      <button class="quitar" onclick="quitarPedido(${index})">✖</button>
-    `;
-    lista.appendChild(li);
-  });
-
-  totalTexto.textContent = `Total: $${total.toLocaleString()}`;
+main {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  padding: 20px;
 }
 
-function enviarWhatsApp() {
-  if (pedido.length === 0) {
-    alert("Aún no has agregado productos");
-    return;
-  }
-
-  const nombre = document.getElementById("nombre").value.trim();
-  const telefonoCliente = document.getElementById("telefono").value.trim();
-  const direccion = document.getElementById("direccion").value.trim();
-
-  if (!nombre || !telefonoCliente || !direccion) {
-    alert("Por favor completa nombre, teléfono y dirección");
-    return;
-  }
-
-  let mensaje = `Hola, soy ${nombre}%0A`;
-  mensaje += `📞 Teléfono: ${telefonoCliente}%0A%0A`;
-  mensaje += `Quiero hacer el siguiente pedido:%0A`;
-
-  pedido.forEach(item => {
-    mensaje += `• ${item.nombre} ${item.cantidad > 1 ? `x${item.cantidad}` : ''} - $${(item.precio * item.cantidad).toLocaleString()}%0A`;
-  });
-
-  mensaje += `%0A📍 Dirección: ${direccion}`;
-  mensaje += `%0A💰 Total: $${total.toLocaleString()}`;
-
-  const telefono = "573225739177"; // TU número aquí
-  window.open(`https://wa.me/${telefono}?text=${mensaje}`, "_blank");
-
-  document.getElementById("mensaje-gracias").classList.remove("oculto");
-
-  // Reiniciar carrito y formulario
-  pedido = [];
-  total = 0;
-  actualizarPedido();
-  document.getElementById("nombre").value = "";
-  document.getElementById("telefono").value = "";
-  document.getElementById("direccion").value = "";
+.productos,
+.pedido {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px var(--sombra);
 }
 
-function vaciarCarrito() {
-  if (pedido.length === 0) {
-    alert("El carrito ya está vacío");
-    return;
+.producto {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.descripcion {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.precio {
+  font-weight: bold;
+}
+
+button {
+  background: var(--principal);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  display: block;
+  margin: 10px auto 0 auto;
+}
+
+button:hover {
+  background: #8f7eea;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quitar {
+  background: transparent;
+  color: red;
+  border: none;
+  cursor: pointer;
+}
+
+input,
+textarea {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+textarea {
+  resize: none;
+}
+
+#mensaje-gracias {
+  margin-top: 15px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.oculto {
+  display: none;
+}
+
+.vaciar {
+  display: block;
+  margin: 10px auto 0 auto;
+  background: transparent;
+  color: #a34;
+  border: 1px solid #a34;
+  padding: 10px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.vaciar:hover {
+  background: #a34;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  main {
+    grid-template-columns: 1fr;
   }
 
-  if (confirm("¿Seguro que quieres vaciar todo el carrito?")) {
-    pedido = [];
-    total = 0;
-    actualizarPedido();
+  .productos,
+  .pedido {
+    margin-bottom: 20px;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .logo-texto {
+    font-size: 28px;
+  }
+
+  .slogan {
+    font-size: 14px;
+  }
+
+  li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
   }
 }
