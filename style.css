@@ -158,4 +158,10 @@ button:hover {
   align-items: center;      /* vertical */
 
   text-align: center;
+
+}
+
+/* 📌 CENTRAR SOLO EL BOTÓN "AGREGAR" */
+.producto button {
+  margin: 12px auto 0;
 }
