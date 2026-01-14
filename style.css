@@ -118,23 +118,36 @@ textarea {
   gap: 4px;
 }
 
-/* VARITA */
-.varita {
-  position: relative;
-  width: 4px;
-  height: 32px;
-  background: white;
-  border-radius: 2px;
-  margin: 0 4px;
-}
+@media (max-width: 768px) {
+  main {
+    grid-template-columns: 1fr;
+  }
 
-/* ESTRELLA DE LA VARITA */
-.estrella {
-  position: absolute;
-  top: -18px;
-  left: 50%;
-  transform: translateX(-50%);
+  .productos,
+  .pedido {
+    margin-bottom: 20px;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .logo-texto {
+    font-size: 28px;
+  }
+
+  .slogan {
+    font-size: 14px;
+  }
+
+  li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}
   font-size: 16px;
   color: #fff7a8;
 }
+
 
