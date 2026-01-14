@@ -1,89 +1,57 @@
-// ===============================
-// 🧾 VARIABLES PRINCIPALES
-// ===============================
-
-// Aquí se guardan todos los productos que el cliente agrega
 let pedido = [];
-
-// Aquí se va acumulando el valor total del pedido
 let total = 0;
 
-
-// ===============================
-// ➕ FUNCIÓN: AGREGAR AL PEDIDO
-// ===============================
-// Esta función se ejecuta cuando el usuario da clic en "Agregar"
 function agregarPedido(nombre, precio) {
-
-  // Guardamos el producto como un objeto (nombre + precio)
-  pedido.push({ nombre: nombre, precio: precio });
-
-  // Sumamos el precio al total
+  pedido.push({ nombre, precio });
   total += precio;
-
-  // Actualizamos lo que se ve en pantalla
   actualizarPedido();
 }
 
-
-// ===============================
-// 🔄 FUNCIÓN: ACTUALIZAR EL PEDIDO EN PANTALLA
-// ===============================
 function actualizarPedido() {
+  const lista = document.getElementById("listaPedido");
+  const totalTexto = document.getElementById("total");
 
-  // Traemos la lista <ul> del HTML
-  const lista = document.getElementById("lista-pedido");
-
-  // Limpiamos la lista para volverla a llenar
   lista.innerHTML = "";
 
-  // Recorremos cada producto del pedido
-  pedido.forEach(function(item) {
-
-    // Creamos un <li> por cada producto
+  pedido.forEach(item => {
     const li = document.createElement("li");
-
-    // Texto que se mostrará
-    li.textContent = item.nombre + " - $" + item.precio;
-
-    // Lo agregamos a la lista
+    li.textContent = `${item.nombre} - $${item.precio}`;
     lista.appendChild(li);
   });
 
-  // Mostramos el total
-  document.getElementById("total").textContent =
-    "Total: $" + total;
+  totalTexto.textContent = `Total: $${total}`;
 }
 
-
-// ===============================
-// 📲 FUNCIÓN: ENVIAR PEDIDO POR WHATSAPP
-// ===============================
 function enviarWhatsApp() {
-
-  // Si no hay productos, no dejamos enviar
   if (pedido.length === 0) {
-    alert("Agrega al menos un producto 🍪");
+    alert("Tu pedido está vacío");
     return;
   }
 
-  // Mensaje inicial
-  let mensaje = "Hola, quiero hacer este pedido:%0A%0A";
+  const direccion = document.getElementById("direccion").value;
 
-  // Agregamos cada producto al mensaje
-  pedido.forEach(function(item) {
-    mensaje += "- " + item.nombre + " ($" + item.precio + ")%0A";
+  if (direccion.trim() === "") {
+    alert("Por favor escribe tu dirección de entrega");
+    return;
+  }
+
+  let mensaje = "🍪 *Pedido Bocados Mágicos* 🍪%0A%0A";
+
+  pedido.forEach(item => {
+    mensaje += `• ${item.nombre} - $${item.precio}%0A`;
   });
 
-  // Agregamos el total
-  mensaje += "%0A Total: $" + total;
+  mensaje += `%0A💰 *Total:* $${total}`;
+  mensaje += `%0A%0A📍 *Dirección:* %0A${direccion}`;
+  mensaje += `%0A%0A✨ ¡Gracias por tu pedido!`;
 
-  // 📌 AQUÍ VA TU NÚMERO (con 57)
-  const telefono = "573225739177";
+  const telefono = "57TUNUMEROAQUI"; // ← CAMBIA ESTO
+  const url = `https://wa.me/${telefono}?text=${mensaje}`;
 
-  // Creamos el enlace de WhatsApp
-  const url = "https://wa.me/" + telefono + "?text=" + mensaje;
+  window.open(url, "_blank");
+}
 
   // Abrimos WhatsApp en una nueva pestaña
   window.open(url, "_blank");
 }
+
