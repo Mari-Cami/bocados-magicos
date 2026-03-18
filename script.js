@@ -82,9 +82,18 @@ function enviarWhatsApp() {
     return alert("TELÉFONO INVÁLIDO (Debe empezar en 3 y tener 10 dígitos)");
   }
 
-  const direccionRegex = /(calle|cra|carrera|cl|kr|avenida|av|transversal|trans|tv|diagonal|diag)/i;  if (!direccionRegex.test(direccion)) {
-    return alert("DIRECCIÓN INVÁLIDA (Ej: Calle 45 #12-30)");
-  }
+  // VALIDAR DIRECCIÓN FLEXIBLE (COLOMBIA)
+const direccionValida =
+  direccion.length >= 8 &&
+  (
+    /(calle|cra|carrera|cl|kr|avenida|av|transversal|trans|tv|diagonal|diag)/i.test(direccion) ||
+    /(conjunto|cj|torre|apto|apartamento|bloque|unidad|residencial)/i.test(direccion)
+  );
+
+if (!direccionValida) {
+  alert("COLOCA UNA DIRECCIÓN VÁLIDA (Ej: Calle 45 #12-30 o Conjunto Sorrento torre 2 apto 301)");
+  return;
+}
 
   if (!metodoPago) return alert("SELECCIONA METODO DE PAGO");
 
