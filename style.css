@@ -27,21 +27,20 @@ main {
   box-shadow: 0 4px 10px var(--sombra);
 }
 
-/* PRODUCTO */
 .producto {
   margin-bottom: 15px;
   padding-bottom: 15px;
   border-bottom: 1px solid #ddd;
 }
 
-/* CONTENEDOR HORIZONTAL */
+/* CONTENEDOR */
 .producto-contenido {
   display: flex;
   gap: 12px;
   align-items: center;
 }
 
-/* IMAGEN PEQUEÑA */
+/* IMAGEN */
 .producto-contenido img {
   width: 90px;
   height: 90px;
@@ -49,7 +48,6 @@ main {
   border-radius: 12px;
 }
 
-/* TEXTO */
 .info {
   flex: 1;
 }
@@ -71,7 +69,6 @@ button {
   padding: 8px 14px;
   border-radius: 10px;
   cursor: pointer;
-  font-size: 14px;
   margin-top: 8px;
 }
 
@@ -89,23 +86,65 @@ ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
   background: white;
   padding: 8px;
   border-radius: 8px;
+  margin-bottom: 8px;
 }
 
 /* INPUTS */
 input,
-textarea {
+textarea,
+select {
   width: 100%;
   margin-top: 10px;
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #ccc;
-  font-size: 14px;
 }
 
-textarea {
-  resize: none;
+@media (max-width: 768px) {
+
+  main {
+    grid-template-columns: 1fr; /* todo en una sola columna */
+  }
+
+  .producto-contenido {
+    flex-direction: row; /* sigue horizontal pero más compacto */
+    align-items: flex-start;
+  }
+
+  .producto-contenido img {
+    width: 70px;
+    height: 70px;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  .pedido button {
+    width: 100%; /* botones más cómodos */
+  }
+
+}
+
+/* 📱 EXTRA PEQUEÑOS (iPhone viejitos, etc) */
+@media (max-width: 480px) {
+
+  .producto-contenido {
+    flex-direction: column; /* imagen arriba en pantallas muy pequeñas */
+    align-items: center;
+    text-align: center;
+  }
+
+  .producto-contenido img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .info {
+    width: 100%;
+  }
+
 }
