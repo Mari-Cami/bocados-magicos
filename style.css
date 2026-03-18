@@ -10,8 +10,6 @@ body {
   background: var(--fondo);
   font-family: Arial, sans-serif;
   color: var(--texto);
-  margin: 0;
-  padding: 0;
 }
 
 main {
@@ -29,10 +27,31 @@ main {
   box-shadow: 0 4px 10px var(--sombra);
 }
 
+/* PRODUCTO */
 .producto {
   margin-bottom: 15px;
   padding-bottom: 15px;
   border-bottom: 1px solid #ddd;
+}
+
+/* CONTENEDOR HORIZONTAL */
+.producto-contenido {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* IMAGEN PEQUEÑA */
+.producto-contenido img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* TEXTO */
+.info {
+  flex: 1;
 }
 
 .descripcion {
@@ -44,44 +63,39 @@ main {
   font-weight: bold;
 }
 
+/* BOTONES */
 button {
   background: var(--principal);
   color: white;
   border: none;
-  padding: 12px 20px;
-  border-radius: 12px;
+  padding: 8px 14px;
+  border-radius: 10px;
   cursor: pointer;
-  font-size: 16px;
-  display: block;
-  margin: 10px auto 0 auto;
-  min-width: 120px; /* tamaño mínimo en PC */
+  font-size: 14px;
+  margin-top: 8px;
 }
 
 button:hover {
   background: #8f7eea;
 }
 
+/* CARRITO */
 ul {
   list-style: none;
   padding: 0;
 }
 
-li {
-  margin-bottom: 8px;
+#lista-pedido li {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 8px;
+  background: white;
+  padding: 8px;
+  border-radius: 8px;
 }
 
-.quitar {
-  background: transparent;
-  color: red;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  padding: 4px 6px;
-}
-
+/* INPUTS */
 input,
 textarea {
   width: 100%;
@@ -94,79 +108,4 @@ textarea {
 
 textarea {
   resize: none;
-}
-
-#mensaje-gracias {
-  margin-top: 15px;
-  text-align: center;
-  font-weight: bold;
-}
-
-.oculto {
-  display: none;
-}
-
-/* PEDIDO HEADER: "Tu pedido" + botón vaciar */
-.pedido-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.pedido-header h2 {
-  margin: 0;
-}
-
-.pedido-header .vaciar {
-  background: transparent;
-  color: #a34;
-  border: 1px solid #a34;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.pedido-header .vaciar:hover {
-  background: #a34;
-  color: white;
-}
-
-/* RESPONSIVE PARA MÓVILES */
-@media (max-width: 768px) {
-  main {
-    grid-template-columns: 1fr;
-  }
-
-  .productos,
-  .pedido {
-    margin-bottom: 20px;
-  }
-
-  button {
-    width: 100%;
-    padding: 15px 0;
-    font-size: 16px;
-  }
-
-  .logo-texto {
-    font-size: 28px;
-  }
-
-  .slogan {
-    font-size: 14px;
-  }
-
-  li {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-  }
-
-  .pedido-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-  }
 }
