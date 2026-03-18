@@ -7,75 +7,105 @@
 </head>
 <body>
 
-<header class="encabezado">
-  <h1 class="logo-texto">Bocados Mág🪄cos</h1>
-  <p class="slogan">Cada bocado, un hechizo de sabor</p>
-</header>
+  <main>
 
-<main>
-  <!-- SECCIÓN PRODUCTOS -->
-  <section class="productos">
-    <h2>Nuestras galletas</h2>
+    <!-- PRODUCTOS -->
+    <section class="productos">
+      <h2>Nuestras galletas</h2>
 
-    <div class="producto">
-      <h3>Capricho doble</h3>
-      <p class="descripcion">Galleta de cacao aromatizada con vainilla.</p>
-      <p class="precio">$5.000</p>
-      <button type="button" onclick="agregarPedido('Capricho doble', 5000)">Agregar</button>
-    </div>
+      <!-- PRODUCTO 1 -->
+      <div class="producto">
+        <div class="producto-contenido">
+          <img src="https://images.aws.nestle.recipes/resized/546910e19c08ec91b3345de4f718e09a_Original_NTH_Chocolate_Chip_Cookie_1080_850.jpg" alt="Galleta">
+          
+          <div class="info">
+            <h3>Capricho doble</h3>
+            <p class="descripcion">Galleta de cacao aromatizada con vainilla.</p>
+            <p class="precio">$5.000</p>
+            <button onclick="agregarPedido('Capricho doble', 5000)">Agregar</button>
+          </div>
+        </div>
+      </div>
 
-    <div class="producto">
-      <h3>CapuKeks</h3>
-      <p class="descripcion">Galleta de Cappuccino cubierta de chocolate blanco.</p>
-      <p class="precio">$5.000</p>
-      <button type="button" onclick="agregarPedido('CapuKeks', 5000)">Agregar</button>
-    </div>
+      <!-- PRODUCTO 2 -->
+      <div class="producto">
+        <div class="producto-contenido">
+          <img src="https://images.aws.nestle.recipes/resized/546910e19c08ec91b3345de4f718e09a_Original_NTH_Chocolate_Chip_Cookie_1080_850.jpg" alt="Galleta">
+          
+          <div class="info">
+            <h3>CapuKeks</h3>
+            <p class="descripcion">Galleta de Cappuccino cubierta de chocolate blanco.</p>
+            <p class="precio">$5.000</p>
+            <button onclick="agregarPedido('CapuKeks', 5000)">Agregar</button>
+          </div>
+        </div>
+      </div>
 
-    <div class="producto">
-      <h3>Rubí de café</h3>
-      <p class="descripcion">Galleta de café con leche de color rojo intenso.</p>
-      <p class="precio">$5.000</p>
-      <button type="button" onclick="agregarPedido('Rubí de café', 5000)">Agregar</button>
-    </div>
+      <!-- PRODUCTO 3 -->
+      <div class="producto">
+        <div class="producto-contenido">
+          <img src="https://images.aws.nestle.recipes/resized/546910e19c08ec91b3345de4f718e09a_Original_NTH_Chocolate_Chip_Cookie_1080_850.jpg" alt="Galleta">
+          
+          <div class="info">
+            <h3>Rubí de café</h3>
+            <p class="descripcion">Galleta de café con leche de color rojo intenso.</p>
+            <p class="precio">$5.000</p>
+            <button onclick="agregarPedido('Rubí de café', 5000)">Agregar</button>
+          </div>
+        </div>
+      </div>
 
-    <div class="producto">
-      <h3>Susurro de manzanilla</h3>
-      <p class="descripcion">Galleta con sabor de flor de manzanilla natural pulverizada con cocoa.</p>
-      <p class="precio">$5.000</p>
-      <button type="button" onclick="agregarPedido('Susurro de manzanilla', 5000)">Agregar</button>
-    </div>
+      <!-- PRODUCTO 4 -->
+      <div class="producto">
+        <div class="producto-contenido">
+          <img src="https://images.aws.nestle.recipes/resized/546910e19c08ec91b3345de4f718e09a_Original_NTH_Chocolate_Chip_Cookie_1080_850.jpg" alt="Galleta">
+          
+          <div class="info">
+            <h3>Susurro de manzanilla</h3>
+            <p class="descripcion">
+              Galleta con sabor de flor de manzanilla natural pulverizada con cocoa.
+            </p>
+            <p class="precio">$5.000</p>
+            <button onclick="agregarPedido('Susurro de manzanilla', 5000)">Agregar</button>
+          </div>
+        </div>
+      </div>
 
-    <div class="producto">
-      <h3>Magia en cuatro bocados</h3>
-      <p class="descripcion">Combo de 4 galletas para que no te quedes sin probar ninguna.</p>
-      <p class="precio">$15.000</p>
-      <button type="button" onclick="agregarPedido('Magia en cuatro bocados', 15000)">Agregar</button>
-    </div>
-  </section>
+      <!-- PRODUCTO 5 -->
+      <div class="producto">
+        <div class="producto-contenido">
+          <img src="https://images.aws.nestle.recipes/resized/546910e19c08ec91b3345de4f718e09a_Original_NTH_Chocolate_Chip_Cookie_1080_850.jpg" alt="Galleta">
+          
+          <div class="info">
+            <h3>Magia en cuatro bocados</h3>
+            <p class="descripcion">
+              Combo de 4 galletas para que no te quedes sin probar ninguna.
+            </p>
+            <p class="precio">$15.000</p>
+            <button onclick="agregarPedido('Magia en cuatro bocados', 15000)">Agregar</button>
+          </div>
+        </div>
+      </div>
 
-  <!-- SECCIÓN PEDIDO -->
-  <section class="pedido">
-    <div class="pedido-header">
+    </section>
+
+    <!-- CARRITO -->
+    <section class="pedido">
       <h2>Tu pedido</h2>
-      <button type="button" class="vaciar" onclick="vaciarCarrito()">Vaciar carrito</button>
-    </div>
 
-    <ul id="lista-pedido"></ul>
-    <p id="total">Total: $0</p>
+      <ul id="lista-pedido"></ul>
+      <p id="total">Total: $0</p>
 
-    <!-- DATOS DEL CLIENTE -->
-    <input id="nombre" type="text" placeholder="Nombre completo" />
-    <input id="telefono" type="tel" placeholder="Número de teléfono" />
-    <textarea id="direccion" placeholder="Dirección completa para el domicilio"></textarea>
+      <button onclick="vaciarCarrito()">Vaciar carrito</button>
 
-    <button type="button" onclick="enviarWhatsApp()">Enviar pedido por WhatsApp</button>
+      <input id="nombre" type="text" placeholder="Nombre completo" />
+      <input id="telefono" type="tel" placeholder="Número de teléfono" />
+      <textarea id="direccion" placeholder="Dirección completa"></textarea>
 
-    <p id="mensaje-gracias" class="oculto">
-      💜 Gracias por pedir con Bocados Mágicos 💜
-    </p>
-  </section>
-</main>
+      <button onclick="enviarWhatsApp()">Enviar pedido por WhatsApp</button>
+    </section>
 
-<script src="script.js"></script>
+  </main>
+
 </body>
 </html>
