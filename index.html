@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"/>
   <title>Bocados Mágicos</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -13,11 +14,11 @@
     <section class="productos">
       <h2>Nuestras galletas</h2>
 
-      <!-- PRODUCTO 1 -->
+      <!-- PRODUCTO -->
       <div class="producto">
         <div class="producto-contenido">
-          <img src="https://images.aws.nestle.recipes/resized/546910e19c08ec91b3345de4f718e09a_Original_NTH_Chocolate_Chip_Cookie_1080_850.jpg" alt="Galleta">
-          
+          <img src="https://images.aws.nestle.recipes/resized/546910e19c08ec91b3345de4f718e09a_Original_NTH_Chocolate_Chip_Cookie_1080_850.jpg">
+
           <div class="info">
             <h3>Capricho doble</h3>
             <p class="descripcion">Galleta de cacao aromatizada con vainilla.</p>
@@ -27,11 +28,10 @@
         </div>
       </div>
 
-      <!-- PRODUCTO 2 -->
       <div class="producto">
         <div class="producto-contenido">
-          <img src="https://images.aws.nestle.recipes/resized/546910e19c08ec91b3345de4f718e09a_Original_NTH_Chocolate_Chip_Cookie_1080_850.jpg" alt="Galleta">
-          
+          <img src="https://images.aws.nestle.recipes/resized/546910e19c08ec91b3345de4f718e09a_Original_NTH_Chocolate_Chip_Cookie_1080_850.jpg">
+
           <div class="info">
             <h3>CapuKeks</h3>
             <p class="descripcion">Galleta de Cappuccino cubierta de chocolate blanco.</p>
@@ -41,11 +41,10 @@
         </div>
       </div>
 
-      <!-- PRODUCTO 3 -->
       <div class="producto">
         <div class="producto-contenido">
-          <img src="https://images.aws.nestle.recipes/resized/546910e19c08ec91b3345de4f718e09a_Original_NTH_Chocolate_Chip_Cookie_1080_850.jpg" alt="Galleta">
-          
+          <img src="https://images.aws.nestle.recipes/resized/546910e19c08ec91b3345de4f718e09a_Original_NTH_Chocolate_Chip_Cookie_1080_850.jpg">
+
           <div class="info">
             <h3>Rubí de café</h3>
             <p class="descripcion">Galleta de café con leche de color rojo intenso.</p>
@@ -55,32 +54,26 @@
         </div>
       </div>
 
-      <!-- PRODUCTO 4 -->
       <div class="producto">
         <div class="producto-contenido">
-          <img src="https://images.aws.nestle.recipes/resized/546910e19c08ec91b3345de4f718e09a_Original_NTH_Chocolate_Chip_Cookie_1080_850.jpg" alt="Galleta">
-          
+          <img src="https://images.aws.nestle.recipes/resized/546910e19c08ec91b3345de4f718e09a_Original_NTH_Chocolate_Chip_Cookie_1080_850.jpg">
+
           <div class="info">
             <h3>Susurro de manzanilla</h3>
-            <p class="descripcion">
-              Galleta con sabor de flor de manzanilla natural pulverizada con cocoa.
-            </p>
+            <p class="descripcion">Galleta con sabor de flor de manzanilla natural.</p>
             <p class="precio">$5.000</p>
             <button onclick="agregarPedido('Susurro de manzanilla', 5000)">Agregar</button>
           </div>
         </div>
       </div>
 
-      <!-- PRODUCTO 5 -->
       <div class="producto">
         <div class="producto-contenido">
-          <img src="https://images.aws.nestle.recipes/resized/546910e19c08ec91b3345de4f718e09a_Original_NTH_Chocolate_Chip_Cookie_1080_850.jpg" alt="Galleta">
-          
+          <img src="https://images.aws.nestle.recipes/resized/546910e19c08ec91b3345de4f718e09a_Original_NTH_Chocolate_Chip_Cookie_1080_850.jpg">
+
           <div class="info">
             <h3>Magia en cuatro bocados</h3>
-            <p class="descripcion">
-              Combo de 4 galletas para que no te quedes sin probar ninguna.
-            </p>
+            <p class="descripcion">Combo de 4 galletas.</p>
             <p class="precio">$15.000</p>
             <button onclick="agregarPedido('Magia en cuatro bocados', 15000)">Agregar</button>
           </div>
@@ -102,13 +95,18 @@
       <input id="telefono" type="tel" placeholder="Número de teléfono" />
       <textarea id="direccion" placeholder="Dirección completa"></textarea>
 
+      <!-- MÉTODO DE PAGO -->
+      <select id="metodoPago">
+        <option value="">Método de pago</option>
+        <option value="Efectivo">Efectivo</option>
+        <option value="Transferencia">Transferencia</option>
+      </select>
+
       <button onclick="enviarWhatsApp()">Enviar pedido por WhatsApp</button>
     </section>
 
   </main>
 
-</body>
-
   <script src="script.js"></script>
-  
+</body>
 </html>
