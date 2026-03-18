@@ -1,7 +1,13 @@
+// =============================
+// 🛒 VARIABLES GLOBALES
+// =============================
 let pedido = {};
 let total = 0;
 
-// CARGAR DATOS GUARDADOS
+
+// =============================
+// 💾 CARGAR DATOS GUARDADOS
+// =============================
 window.onload = function () {
   document.getElementById("nombre").value = localStorage.getItem("nombre") || "";
   document.getElementById("telefono").value = localStorage.getItem("telefono") || "";
@@ -9,7 +15,10 @@ window.onload = function () {
   document.getElementById("metodoPago").value = localStorage.getItem("metodoPago") || "";
 };
 
-// AGREGAR PRODUCTO
+
+// =============================
+// ➕ AGREGAR PRODUCTO
+// =============================
 function agregarPedido(nombre, precio) {
   if (pedido[nombre]) {
     pedido[nombre].cantidad++;
@@ -19,26 +28,42 @@ function agregarPedido(nombre, precio) {
   actualizarPedido();
 }
 
-// SUMAR
+
+// =============================
+// ➕ SUMAR CANTIDAD
+// =============================
 function sumar(nombre) {
   pedido[nombre].cantidad++;
   actualizarPedido();
 }
 
-// RESTAR
+
+// =============================
+// ➖ RESTAR CANTIDAD
+// =============================
 function restar(nombre) {
   pedido[nombre].cantidad--;
-  if (pedido[nombre].cantidad <= 0) delete pedido[nombre];
+
+  if (pedido[nombre].cantidad <= 0) {
+    delete pedido[nombre];
+  }
+
   actualizarPedido();
 }
 
-// VACIAR
+
+// =============================
+// 🗑️ VACIAR CARRITO
+// =============================
 function vaciarCarrito() {
   pedido = {};
   actualizarPedido();
 }
 
-// ACTUALIZAR UI
+
+// =============================
+// 🔄 ACTUALIZAR INTERFAZ
+// =============================
 function actualizarPedido() {
   const lista = document.getElementById("lista-pedido");
   lista.innerHTML = "";
@@ -49,6 +74,7 @@ function actualizarPedido() {
     total += item.precio * item.cantidad;
 
     const li = document.createElement("li");
+
     li.innerHTML = `
       ${nombre} x${item.cantidad} - $${(item.precio * item.cantidad).toLocaleString()}
       <div>
@@ -56,15 +82,20 @@ function actualizarPedido() {
         <button onclick="sumar('${nombre}')">+</button>
       </div>
     `;
+
     lista.appendChild(li);
   }
 
   document.getElementById("total").textContent = `Total: $${total.toLocaleString()}`;
 }
 
-// ENVIAR WHATSAPP
+
+// =============================
+// 📲 ENVIAR PEDIDO POR WHATSAPP
+// =============================
 function enviarWhatsApp() {
 
+  // 🛒 VALIDAR CARRITO
   if (Object.keys(pedido).length === 0) {
     alert("EL CARRITO SE ENCUENTRA VACÍO");
     return;
@@ -72,47 +103,75 @@ function enviarWhatsApp() {
 
   const nombre = document.getElementById("nombre").value.trim();
   const telefono = document.getElementById("telefono").value.trim();
-  const direccion = document.getElementById("direccion").value.trim();
+
+  // 🔥 ARREGLO IMPORTANTE (QUITAR SALTOS DE LÍNEA)
+  const direccion = document.getElementById("direccion").value.replace(/\n/g, " ").trim();
+
   const metodoPago = document.getElementById("metodoPago").value;
 
-  if (!nombre) return alert("POR FAVOR COMPLETA NOMBRE");
-
-  const telefonoRegex = /^3\d{9}$/;
-  if (!telefonoRegex.test(telefono)) {
-    return alert("TELÉFONO INVÁLIDO (Debe empezar en 3 y tener 10 dígitos)");
+  // 👤 VALIDAR NOMBRE
+  if (!nombre) {
+    alert("POR FAVOR COMPLETA NOMBRE");
+    return;
   }
 
-  // VALIDAR DIRECCIÓN FLEXIBLE (COLOMBIA)
-const direccionValida =
-  direccion.length >= 8 &&
-  (
-    /(calle|cra|carrera|cl|kr|avenida|av|transversal|trans|tv|diagonal|diag)/i.test(direccion) ||
-    /(conjunto|cj|torre|apto|apartamento|bloque|unidad|residencial)/i.test(direccion)
-  );
+  // 📱 VALIDAR TELÉFONO COLOMBIA
+  const telefonoRegex = /^3\d{9}$/;
+  if (!telefonoRegex.test(telefono)) {
+    alert("COLOCA UN TELÉFONO VÁLIDO (Debe empezar en 3 y tener 10 dígitos)");
+    return;
+  }
 
-if (!direccionValida) {
-  alert("COLOCA UNA DIRECCIÓN VÁLIDA (Ej: Calle 45 #12-30 o Conjunto Sorrento torre 2 apto 301)");
-  return;
-}
+  // 📍 VALIDAR DIRECCIÓN FLEXIBLE
+  const direccionValida =
+    direccion.length >= 8 &&
+    (
+      /(calle|cra|carrera|cl|kr|avenida|av|transversal|trans|tv|diagonal|diag)/i.test(direccion) ||
+      /(conjunto|cj|torre|apto|apartamento|bloque|unidad|residencial)/i.test(direccion)
+    );
 
-  if (!metodoPago) return alert("SELECCIONA METODO DE PAGO");
+  if (!direccionValida) {
+    alert("COLOCA UNA DIRECCIÓN VÁLIDA (Ej: Calle 45 #12-30 o Conjunto Siena torre 2 apto 301)");
+    return;
+  }
 
-  // GUARDAR DATOS
+  // 🧠 VALIDAR QUE NO SEA MUY CORTA
+  if (direccion.split(" ").length < 2) {
+    alert("LA DIRECCIÓN ESTÁ INCOMPLETA");
+    return;
+  }
+
+  // 💳 VALIDAR MÉTODO DE PAGO
+  if (!metodoPago) {
+    alert("POR FAVOR SELECCIONA MÉTODO DE PAGO");
+    return;
+  }
+
+  // 💾 GUARDAR DATOS
   localStorage.setItem("nombre", nombre);
   localStorage.setItem("telefono", telefono);
   localStorage.setItem("direccion", direccion);
   localStorage.setItem("metodoPago", metodoPago);
 
-  let mensaje = `Hola, soy ${nombre}%0A📞 ${telefono}%0A%0A`;
+  // 📝 CREAR MENSAJE
+  let mensaje = `Hola, soy ${nombre}%0A`;
+  mensaje += `📞 ${telefono}%0A%0A`;
+  mensaje += `Quiero hacer el siguiente pedido:%0A`;
 
   for (let item in pedido) {
     mensaje += `• ${item} x${pedido[item].cantidad}%0A`;
   }
 
-  mensaje += `%0A📍 ${direccion}`;
-  mensaje += `%0A💳 ${metodoPago}`;
+  mensaje += `%0A📍 Dirección: ${direccion}`;
+  mensaje += `%0A💳 Método de pago: ${metodoPago}`;
   mensaje += `%0A💰 Total: $${total.toLocaleString()}`;
 
+  // 📲 ENVIAR A WHATSAPP
+  window.open(`https://wa.me/573XXXXXXXXX?text=${mensaje}`);
+
+  // 💜 ALERT FINAL
+  alert("💜 Gracias por pedir en Bocados Mágicos 💜\nTu pedido está en proceso…\nAdvertencia: nuestras galletas pueden causar felicidad extrema 🤭🍪");
+}
   window.open(`https://wa.me/573225739177?text=${mensaje}`);
 
   alert("💜 Gracias por pedir en Bocados Mágicos 💜\nTu pedido está en proceso…\nAdvertencia: nuestras galletas pueden causar felicidad extrema 🤭🍪");
