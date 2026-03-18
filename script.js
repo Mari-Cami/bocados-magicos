@@ -1,51 +1,69 @@
-let pedido = [];
+let pedido = {};
 let total = 0;
 
+// AGREGAR PRODUCTO
 function agregarPedido(nombre, precio) {
-  const productoExistente = pedido.find(item => item.nombre === nombre);
-
-  if (productoExistente) {
-    productoExistente.cantidad += 1;
+  if (pedido[nombre]) {
+    pedido[nombre].cantidad++;
   } else {
-    pedido.push({ nombre, precio, cantidad: 1 });
+    pedido[nombre] = { precio, cantidad: 1 };
   }
-
-  total = pedido.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
   actualizarPedido();
 }
 
-function quitarPedido(index) {
-  if (pedido[index].cantidad > 1) {
-    pedido[index].cantidad -= 1;
-  } else {
-    pedido.splice(index, 1);
-  }
-
-  total = pedido.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+// SUMAR
+function sumar(nombre) {
+  pedido[nombre].cantidad++;
   actualizarPedido();
 }
 
+// RESTAR
+function restar(nombre) {
+  pedido[nombre].cantidad--;
+  if (pedido[nombre].cantidad <= 0) {
+    delete pedido[nombre];
+  }
+  actualizarPedido();
+}
+
+// VACIAR CARRITO
+function vaciarCarrito() {
+  pedido = {};
+  actualizarPedido();
+}
+
+// ACTUALIZAR CARRITO
 function actualizarPedido() {
   const lista = document.getElementById("lista-pedido");
-  const totalTexto = document.getElementById("total");
-
   lista.innerHTML = "";
+  total = 0;
 
-  pedido.forEach((item, index) => {
+  for (let nombre in pedido) {
+    let item = pedido[nombre];
+    total += item.precio * item.cantidad;
+
     const li = document.createElement("li");
-    li.innerHTML = `
-      ${item.nombre} ${item.cantidad > 1 ? `(${item.cantidad}x)` : ''} - $${(item.precio * item.cantidad).toLocaleString()}
-      <button type="button" class="quitar" onclick="quitarPedido(${index})">✖</button>
-    `;
-    lista.appendChild(li);
-  });
 
-  totalTexto.textContent = `Total: $${total.toLocaleString()}`;
+    li.innerHTML = `
+      ${nombre} x${item.cantidad} - $${(item.precio * item.cantidad).toLocaleString()}
+      <div class="controles">
+        <button onclick="restar('${nombre}')">-</button>
+        <button onclick="sumar('${nombre}')">+</button>
+      </div>
+    `;
+
+    lista.appendChild(li);
+  }
+
+  document.getElementById("total").textContent = `Total: $${total.toLocaleString()}`;
 }
 
+// WHATSAPP
 function enviarWhatsApp() {
-  if (pedido.length === 0) {
-    alert("Aún no has agregado productos");
+
+  // VALIDAR CARRITO VACÍO
+  if (Object.keys(pedido).length === 0) {
+    alert("EL CARRITO SE ENCUENTRA VACÍO");
     return;
   }
 
@@ -53,46 +71,51 @@ function enviarWhatsApp() {
   const telefonoCliente = document.getElementById("telefono").value.trim();
   const direccion = document.getElementById("direccion").value.trim();
 
-  if (!nombre || !telefonoCliente || !direccion) {
-    alert("Por favor completa nombre, teléfono y dirección");
+  // VALIDAR NOMBRE
+  if (!nombre) {
+    alert("POR FAVOR COMPLETA NOMBRE");
     return;
   }
 
+  // VALIDAR TELÉFONO VACÍO
+  if (!telefonoCliente) {
+    alert("POR FAVOR COMPLETA TELEFONO");
+    return;
+  }
+
+  // VALIDAR TELÉFONO COLOMBIA (10 dígitos que empiezan en 3)
+  const telefonoLimpio = telefonoCliente.replace(/\s/g, ""); // quita espacios
+  const telefonoRegex = /^3\d{9}$/;
+
+  if (!telefonoRegex.test(telefonoLimpio)) {
+    alert("COLOCA INFORMACION VALIDA EN TELEFONO, RECUERDA: DEBE EMPEZAR EN 3 Y TENER 10 DIGITOS");
+    return;
+  }
+
+  // VALIDAR DIRECCIÓN VACÍA
+  if (!direccion) {
+    alert("POR FAVOR COMPLETA DIRECCION");
+    return;
+  }
+
+  // VALIDACIÓN BÁSICA DE DIRECCIÓN
+  if (direccion.length < 5) {
+    alert("COLOCA UNA DIRECCION VALIDA");
+    return;
+  }
+
+  // CREAR MENSAJE
   let mensaje = `Hola, soy ${nombre}%0A`;
-  mensaje += `📞 Teléfono: ${telefonoCliente}%0A%0A`;
+  mensaje += `☎️ Teléfono: ${telefonoCliente}%0A%0A`;
   mensaje += `Quiero hacer el siguiente pedido:%0A`;
 
-  // AGREGAMOS EL NOMBRE CON CANTIDAD
-  pedido.forEach(item => {
-    const nombreCantidad = item.cantidad > 1 ? `${item.nombre} (${item.cantidad}x)` : item.nombre;
-    mensaje += `• ${nombreCantidad} - $${(item.precio * item.cantidad).toLocaleString()}%0A`;
-  });
+  for (let nombre in pedido) {
+    mensaje += `• ${nombre} x${pedido[nombre].cantidad}%0A`;
+  }
 
   mensaje += `%0A📍 Dirección: ${direccion}`;
   mensaje += `%0A💰 Total: $${total.toLocaleString()}`;
 
-  const telefono = "573225739177"; // TU número aquí
+  const telefono = "573225739177";
   window.open(`https://wa.me/${telefono}?text=${mensaje}`, "_blank");
-
-  document.getElementById("mensaje-gracias").classList.remove("oculto");
-
-  pedido = [];
-  total = 0;
-  actualizarPedido();
-  document.getElementById("nombre").value = "";
-  document.getElementById("telefono").value = "";
-  document.getElementById("direccion").value = "";
-}
-
-function vaciarCarrito() {
-  if (pedido.length === 0) {
-    alert("El carrito ya está vacío");
-    return;
-  }
-
-  if (confirm("¿Seguro que quieres vaciar todo el carrito?")) {
-    pedido = [];
-    total = 0;
-    actualizarPedido();
-  }
 }
