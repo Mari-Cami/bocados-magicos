@@ -1,6 +1,14 @@
 let pedido = {};
 let total = 0;
 
+// CARGAR DATOS GUARDADOS
+window.onload = function () {
+  document.getElementById("nombre").value = localStorage.getItem("nombre") || "";
+  document.getElementById("telefono").value = localStorage.getItem("telefono") || "";
+  document.getElementById("direccion").value = localStorage.getItem("direccion") || "";
+  document.getElementById("metodoPago").value = localStorage.getItem("metodoPago") || "";
+};
+
 // AGREGAR PRODUCTO
 function agregarPedido(nombre, precio) {
   if (pedido[nombre]) {
@@ -20,19 +28,17 @@ function sumar(nombre) {
 // RESTAR
 function restar(nombre) {
   pedido[nombre].cantidad--;
-  if (pedido[nombre].cantidad <= 0) {
-    delete pedido[nombre];
-  }
+  if (pedido[nombre].cantidad <= 0) delete pedido[nombre];
   actualizarPedido();
 }
 
-// VACIAR CARRITO
+// VACIAR
 function vaciarCarrito() {
   pedido = {};
   actualizarPedido();
 }
 
-// ACTUALIZAR CARRITO
+// ACTUALIZAR UI
 function actualizarPedido() {
   const lista = document.getElementById("lista-pedido");
   lista.innerHTML = "";
@@ -43,79 +49,62 @@ function actualizarPedido() {
     total += item.precio * item.cantidad;
 
     const li = document.createElement("li");
-
     li.innerHTML = `
       ${nombre} x${item.cantidad} - $${(item.precio * item.cantidad).toLocaleString()}
-      <div class="controles">
+      <div>
         <button onclick="restar('${nombre}')">-</button>
         <button onclick="sumar('${nombre}')">+</button>
       </div>
     `;
-
     lista.appendChild(li);
   }
 
   document.getElementById("total").textContent = `Total: $${total.toLocaleString()}`;
 }
 
-// WHATSAPP
+// ENVIAR WHATSAPP
 function enviarWhatsApp() {
 
-  // VALIDAR CARRITO VACÍO
   if (Object.keys(pedido).length === 0) {
     alert("EL CARRITO SE ENCUENTRA VACÍO");
     return;
   }
 
   const nombre = document.getElementById("nombre").value.trim();
-  const telefonoCliente = document.getElementById("telefono").value.trim();
+  const telefono = document.getElementById("telefono").value.trim();
   const direccion = document.getElementById("direccion").value.trim();
+  const metodoPago = document.getElementById("metodoPago").value;
 
-  // VALIDAR NOMBRE
-  if (!nombre) {
-    alert("POR FAVOR COMPLETA NOMBRE");
-    return;
-  }
+  if (!nombre) return alert("POR FAVOR COMPLETA NOMBRE");
 
-  // VALIDAR TELÉFONO VACÍO
-  if (!telefonoCliente) {
-    alert("POR FAVOR COMPLETA TELEFONO");
-    return;
-  }
-
-  // VALIDAR TELÉFONO COLOMBIA (10 dígitos que empiezan en 3)
-  const telefonoLimpio = telefonoCliente.replace(/\s/g, ""); // quita espacios
   const telefonoRegex = /^3\d{9}$/;
-
-  if (!telefonoRegex.test(telefonoLimpio)) {
-    alert("COLOCA INFORMACION VALIDA EN TELEFONO, RECUERDA: DEBE EMPEZAR EN 3 Y TENER 10 DIGITOS");
-    return;
+  if (!telefonoRegex.test(telefono)) {
+    return alert("TELÉFONO INVÁLIDO (Debe empezar en 3 y tener 10 dígitos)");
   }
 
-  // VALIDAR DIRECCIÓN VACÍA
-  if (!direccion) {
-    alert("POR FAVOR COMPLETA DIRECCION");
-    return;
+  const direccionRegex = /(calle|cra|carrera|cl|kr|avenida|av|transversal|trans|tv|diagonal|diag)/i;  if (!direccionRegex.test(direccion)) {
+    return alert("DIRECCIÓN INVÁLIDA (Ej: Calle 45 #12-30)");
   }
 
-  // VALIDACIÓN BÁSICA DE DIRECCIÓN
-  if (direccion.length < 5) {
-    alert("COLOCA UNA DIRECCION VALIDA");
-    return;
+  if (!metodoPago) return alert("SELECCIONA METODO DE PAGO");
+
+  // GUARDAR DATOS
+  localStorage.setItem("nombre", nombre);
+  localStorage.setItem("telefono", telefono);
+  localStorage.setItem("direccion", direccion);
+  localStorage.setItem("metodoPago", metodoPago);
+
+  let mensaje = `Hola, soy ${nombre}%0A📞 ${telefono}%0A%0A`;
+
+  for (let item in pedido) {
+    mensaje += `• ${item} x${pedido[item].cantidad}%0A`;
   }
 
-  // CREAR MENSAJE
-  let mensaje = `Hola, soy ${nombre}%0A`;
-  mensaje += `☎️ Teléfono: ${telefonoCliente}%0A%0A`;
-  mensaje += `Quiero hacer el siguiente pedido:%0A`;
-
-  for (let nombre in pedido) {
-    mensaje += `• ${nombre} x${pedido[nombre].cantidad}%0A`;
-  }
-
-  mensaje += `%0A📍 Dirección: ${direccion}`;
+  mensaje += `%0A📍 ${direccion}`;
+  mensaje += `%0A💳 ${metodoPago}`;
   mensaje += `%0A💰 Total: $${total.toLocaleString()}`;
 
-  const telefono = "573225739177";
-  window.open(`https://wa.me/${telefono}?text=${mensaje}`, "_blank");
+  window.open(`https://wa.me/573225739177?text=${mensaje}`);
+
+  alert("💜 Gracias por pedir en Bocados Mágicos 💜\nTu pedido está en proceso…\nAdvertencia: nuestras galletas pueden causar felicidad extrema 🤭🍪");
 }
